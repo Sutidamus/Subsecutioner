@@ -17,4 +17,6 @@ class Background(pygame.sprite.Sprite):
         pygame.draw.rect(self.screen, self.color, self.ocean)
     def drawSky(self):
         pygame.draw.rect(self.screen, self.skyColor, self.sky)
+
+
     
