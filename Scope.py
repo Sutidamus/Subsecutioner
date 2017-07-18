@@ -35,7 +35,7 @@ class Scope(pygame.sprite.Sprite):
             self.startV = (self.startV[0], self.startV[1] - 10)
             self.endV = (self.endV[0], self.endV[1] - 10)
 
-        if key[pygame.K_DOWN] and self.rect.top > 0:
+        if key[pygame.K_DOWN] and self.rect.top < self.screenHeight - 2/5 *self.screenHeight:
            #print(self.startH[1])
             self.rect.move_ip(0,10)
             self.startH = (self.startH[0], self.startH[1] + 10)
@@ -43,7 +43,7 @@ class Scope(pygame.sprite.Sprite):
             self.startV = (self.startV[0], self.startV[1] + 10)
             self.endV = (self.endV[0], self.endV[1] + 10)
 
-        if key[pygame.K_LEFT]:
+        if key[pygame.K_LEFT] and self.rect.left > 0:
            #print(self.startH[1])
             self.rect.move_ip(-10,0)
             self.startH = (self.startH[0] - 10, self.startH[1])
@@ -51,7 +51,7 @@ class Scope(pygame.sprite.Sprite):
             self.startV = (self.startV[0] - 10, self.startV[1])
             self.endV = (self.endV[0] - 10, self.endV[1])
 
-        if key[pygame.K_RIGHT]:
+        if key[pygame.K_RIGHT] and self.rect.right < self.screenWidth:
            #print(self.startH[1])
             self.rect.move_ip(10,0)
             self.startH = (self.startH[0] + 10, self.startH[1])
