@@ -11,7 +11,10 @@ def main():
     game.runGame()
 
 
-"""Game Class"""
+"""
+Game Class
+"""
+
 class Game:
     def __init__(self):
         self.width = 1000
@@ -45,7 +48,7 @@ class Game:
             self.ship2.draw()
         if self.ship3.rect.left == self.screen.get_width():
             self.ship3 = ships.Ship(self.screen, 400, 340)
-            self.ship3.draw()
+            self.ship3.draw()       
 
     def runGame(self):
         pygame.key.set_repeat(500, 30) # Values can be changed as needed. Example values
@@ -64,5 +67,6 @@ class Game:
             self.scope.move()
             self.moveShips()
             self.screenWrap()
+            print(self.scope.getCoordinates())
 
 main()
