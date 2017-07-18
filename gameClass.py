@@ -19,7 +19,7 @@ class Game:
         self.background = pygame.Surface(self.screen.get_size())
         self.background = self.background.convert()
         self.screen.fill((200,200,200)) # Values can be changed as needed. Example values
-        self.ocean = background.Background(self.screen, 0, 320)
+        self.bg = background.Background(self.screen, 0, self.height/2)
         self.ship1 = ships.Ship(self.screen, 100, 340)
         self.ship2 = ships.Ship(self.screen, 100, 340)
         self.ship3 = ships.Ship(self.screen, 100, 340)
@@ -34,7 +34,8 @@ class Game:
                     sys.exit()
             pygame.display.update()
             self.screen.fill((200,200,200)) # Values can be changed as needed. Example values
-            self.ocean.draw()
+            self.bg.drawSea()
+            self.bg.drawSky()
             self.ship1.draw()
             self.ship2.draw()
             self.ship3.draw()
