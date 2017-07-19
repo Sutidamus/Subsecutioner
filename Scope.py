@@ -25,13 +25,6 @@ class Scope(pygame.sprite.Sprite):
         pygame.draw.line(self.screen, self.color, self.startV, self.endV, self.scopeWidth)
         pygame.draw.line(self.screen, self.color, self.startH, self.endH, self.scopeWidth)
 
-    def getCoordinates(self):
-        key = pygame.key.get_pressed()
-        if key[pygame.K_SPACE]:
-            xCood = (self.startV[0] + self.endV[0]) // 2 
-            yCood = (self.startV[1] + self.endV[1]) // 2
-            return xCood, yCood
-
     def move(self):
         key = pygame.key.get_pressed()
         if key[pygame.K_UP] and self.rect.top > self.screenHeight / 5:

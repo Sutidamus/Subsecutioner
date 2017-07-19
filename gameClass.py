@@ -3,7 +3,8 @@ import pygame
 import background
 import sys
 import ships
-import Scope
+import scope
+import torpedo
 
 def main():
     pygame.init()
@@ -26,10 +27,14 @@ class Game:
         self.bg = background.Background(self.screen, 0, self.height/2)
         self.ship1 = ships.Ship(self.screen, 100, 340)
         self.ship2 = ships.Ship(self.screen, 250, 340)
-        self.ship3 = ships.Ship(self.screen, 400, 340)
-        self.scope = Scope.Scope(self.screen)
-        self.linev = Scope.Scope(self.screen)
-        self.lineh = Scope.Scope(self.screen)
+        self.ship3 = ships.Ship(self.screen, 400, 340) 
+        self.scope = scope.Scope(self.screen)
+        self.linev = scope.Scope(self.screen)
+        self.lineh = scope.Scope(self.screen)
+        self.P1 = (500, 700)
+        self.dx = 0
+        self.dy = 0
+        
 
     def moveShips(self):
         if self.ship1.rect.left < self.screen.get_width():
@@ -50,6 +55,19 @@ class Game:
             self.ship3 = ships.Ship(self.screen, 400, 340)
             self.ship3.draw()       
 
+
+    
+    def getCoordinates(self):
+            xCood = (self.scope.startV[0] + self.scope.endV[0]) / 2 
+            yCood = (self.scope.startV[1] + self.scope.endV[1]) / 2
+            return xCood, yCood
+
+    def calculateSlope(self):
+        self.dx = self.getCoordinates()[0] - 500
+        self.dy = self.getCoordinates()[1] - 700
+        return self.dx, self.dy
+
+
     def runGame(self):
         pygame.key.set_repeat(500, 30) # Values can be changed as needed. Example values
 
@@ -67,6 +85,16 @@ class Game:
             self.scope.move()
             self.moveShips()
             self.screenWrap()
-            print(self.scope.getCoordinates())
+            key = pygame.key.get_pressed()
+            # Catching the ZeroDivisionError using an exception
+            try:
+                if key[pygame.K_SPACE]:
+                    print(self.calculateSlope())
+                    self.torpedo = torpedo.Torpedo(self.screen, self.dx, self.dy)
+                    self.torpedo.draw()
+            except ZeroDivisionError:
+                self.torpedo = torpedo.Torpedo(self.screen, self.dx, self.dy)
+                self.torpedo.draw()
+                pass
 
 main()
