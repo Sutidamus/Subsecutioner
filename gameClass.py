@@ -5,7 +5,7 @@ import sys
 import ships
 import scope
 import torpedo
-
+ 
 def main():
     pygame.init()
     game = Game()
@@ -60,7 +60,7 @@ class Game:
     def getCoordinates(self):
             xCood = (self.scope.startV[0] + self.scope.endV[0]) / 2 
             yCood = (self.scope.startV[1] + self.scope.endV[1]) / 2
-            return xCood, yCood
+            return xCood, yCood 
 
     def calculateSlope(self):
         self.dx = self.getCoordinates()[0] - 500
@@ -95,6 +95,6 @@ class Game:
             except ZeroDivisionError:
                 self.torpedo = torpedo.Torpedo(self.screen, self.dx, self.dy)
                 self.torpedo.draw()
-                pass
+                
 
 main()
