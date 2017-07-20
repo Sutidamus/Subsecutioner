@@ -5,7 +5,7 @@ import sys
 import ships
 import scope
 import torpedo
- 
+
 def main():
     pygame.init()
     game = Game()
@@ -34,15 +34,16 @@ class Game:
         self.P1 = (500, 700)
         self.dx = 0
         self.dy = 0
+        self.torpedo = None
         
 
     def moveShips(self):
         if self.ship1.rect.left < self.screen.get_width():
-            self.ship1.rect.move_ip(3,0)
+            self.ship1.rect.move_ip(1,0)
         if self.ship2.rect.left < self.screen.get_width():
-            self.ship2.rect.move_ip(3,0)
+            self.ship2.rect.move_ip(1,0)
         if self.ship3.rect.left < self.screen.get_width():
-            self.ship3.rect.move_ip(3, 0)
+            self.ship3.rect.move_ip(1, 0)
 
     def screenWrap(self):
         if self.ship1.rect.left == self.screen.get_width():
@@ -60,7 +61,7 @@ class Game:
     def getCoordinates(self):
             xCood = (self.scope.startV[0] + self.scope.endV[0]) / 2 
             yCood = (self.scope.startV[1] + self.scope.endV[1]) / 2
-            return xCood, yCood 
+            return xCood, yCood
 
     def calculateSlope(self):
         self.dx = self.getCoordinates()[0] - 500
@@ -87,14 +88,16 @@ class Game:
             self.screenWrap()
             key = pygame.key.get_pressed()
             # Catching the ZeroDivisionError using an exception
+            
             try:
                 if key[pygame.K_SPACE]:
                     print(self.calculateSlope())
                     self.torpedo = torpedo.Torpedo(self.screen, self.dx, self.dy)
-                    self.torpedo.draw()
             except ZeroDivisionError:
                 self.torpedo = torpedo.Torpedo(self.screen, self.dx, self.dy)
-                self.torpedo.draw()
-                
+                self.torpedo.move()
+                pass
+            if not self.torpedo == None:
+                self.torpedo.move()
 
 main()
