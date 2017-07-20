@@ -16,20 +16,22 @@ class Torpedo(pygame.sprite.Sprite):
         except ZeroDivisionError:
             pass
             
-        self.rect = self.image.get_rect()
-        self.rect.center = (500, 700)
+        self.originalRect = self.image.get_rect()
+        self.originalRect.center = (500, 700)
+        self.count = 0
 
     def draw(self):
         self.screen.blit(self.image, (self.rect.x, self.rect.y))
 
     def move(self):
-        self.draw()
         
         #delay = 0.6
         #oldTime = time.time()
         #if oldTime + delay > time.time():
         #time.sleep(0.6)
-        self.rect.move_ip(self.dx/200, self.dy/200)
+        self.rect = self.originalRect.move(self.dx/200.0 * self.count, self.dy/200.0 * self.count)
+        self.draw()
+        self.count += 1
        
         
 
