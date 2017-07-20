@@ -15,9 +15,10 @@ class Torpedo(pygame.sprite.Sprite):
             self.image = pygame.transform.rotate(self.image, math.degrees(math.atan(self.dx/self.dy)))
         except ZeroDivisionError:
             pass
-            
+        
         self.originalRect = self.image.get_rect()
         self.originalRect.center = (500, 700)
+        self.rect = self.originalRect
         self.count = 0
 
     def draw(self):

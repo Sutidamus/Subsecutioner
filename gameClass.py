@@ -86,6 +86,7 @@ class Game:
             self.scope.move()
             self.moveShips()
             self.screenWrap()
+            
             key = pygame.key.get_pressed()
             # Catching the ZeroDivisionError using an exception
             
@@ -99,5 +100,11 @@ class Game:
                 pass
             if not self.torpedo == None:
                 self.torpedo.move()
+                print(self.collision())
 
+    def collision(self):
+        if pygame.sprite.collide_rect(self.torpedo, self.ship1) or pygame.sprite.collide_rect(self.torpedo, self.ship2) or pygame.sprite.collide_rect(self.torpedo, self.ship3):
+            return True
+        return False
+        
 main()

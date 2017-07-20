@@ -2,6 +2,7 @@ import pygame
 
 class Ship(pygame.sprite.Sprite):
     def __init__(self, screen, xCood, yCood):
+        pygame.sprite.Sprite.__init__(self)
         self.screen = screen
         self.xCood = xCood
         self.yCood = yCood
