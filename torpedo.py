@@ -17,11 +17,9 @@ class Torpedo(pygame.sprite.Sprite):
         self.originalRect.center = (500, 700)
         self.rect = self.originalRect
         self.count = 0
-
-    def draw(self):
-
-                
-        
+    def __del__(self):
+        print ("Torpedo Destroyed")
+    def draw(self):  
         print("Image pos: " + str(self.imagePos))
         self.image = pygame.image.load(self.imageList[self.imagePos])
         self.image = pygame.transform.scale(self.image, (50, 50))
@@ -47,11 +45,10 @@ class Torpedo(pygame.sprite.Sprite):
         self.rect.x = 500
         self.rect.y = 700
         self.rect = self.originalRect.move(self.dx/200.0 * self.count, self.dy/200.0 * self.count)
-        if self.rect.top > 400:
-            self.draw()
         self.count += 1
         self.imagePos +=1
         if self.imagePos == 3:
             self.imagePos = 0
+        self.draw()
         
        

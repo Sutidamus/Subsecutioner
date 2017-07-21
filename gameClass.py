@@ -101,6 +101,11 @@ class Game:
             if not self.torpedo == None:
                 self.torpedo.move()
                 print(self.collision())
+                if self.torpedo.rect.top < 372:
+                    print("="*15)
+                    del(self.torpedo)
+                    self.torpedo = None
+
 
     def collision(self):
         if pygame.sprite.collide_rect(self.torpedo, self.ship1) or pygame.sprite.collide_rect(self.torpedo, self.ship2) or pygame.sprite.collide_rect(self.torpedo, self.ship3):
