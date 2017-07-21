@@ -24,7 +24,7 @@ class Game:
         self.background = pygame.Surface(self.screen.get_size())
         self.background = self.background.convert()
         self.screen.fill((200,200,200)) # Values can be changed as needed. Example values
-        self.bg = background.Background(self.screen, 0, self.height/2)
+        self.bg = background.Background(self.screen, 0, 375)
         self.ship1 = ships.Ship(self.screen, 100, 340)
         self.ship2 = ships.Ship(self.screen, 250, 340)
         self.ship3 = ships.Ship(self.screen, 400, 340) 
