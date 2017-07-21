@@ -9,7 +9,7 @@ class Torpedo(pygame.sprite.Sprite):
         self.screen = screen
         self.dx = dx
         self.dy = dy
-        self.image = pygame.image.load("arrow.png")
+        self.image = pygame.image.load("torpedo.png")
         self.image = pygame.transform.scale(self.image, (60, 60))
         try:
             self.image = pygame.transform.rotate(self.image, math.degrees(math.atan(self.dx/self.dy)))
