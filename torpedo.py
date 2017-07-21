@@ -47,7 +47,8 @@ class Torpedo(pygame.sprite.Sprite):
         self.rect.x = 500
         self.rect.y = 700
         self.rect = self.originalRect.move(self.dx/200.0 * self.count, self.dy/200.0 * self.count)
-        self.draw()
+        if self.rect.top > 400:
+            self.draw()
         self.count += 1
         self.imagePos +=1
         if self.imagePos == 3:
