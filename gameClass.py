@@ -1,4 +1,3 @@
-
 import pygame
 import background
 import sys
