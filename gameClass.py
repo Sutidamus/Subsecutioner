@@ -172,4 +172,3 @@ class Game:
         self.scoreDis = self.scoreText.render("Current Score: " + str(self.score), 20, (255,255,255))
         self.screen.blit(self.scoreDis, (35, 35))
         
-main()
