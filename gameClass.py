@@ -118,7 +118,7 @@ class Game:
                     self.collisionShip2()
                     self.collisionShip3()
                     del(self.torpedo)
-                    time.sleep(.05)
+                    time.sleep(.2)
                     self.torpedo = None
                 #if self.torpedo.rect.top < 420:
                     #print("="*15)
