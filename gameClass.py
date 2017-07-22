@@ -106,7 +106,7 @@ class Game:
                     print(self.collisionShip1())
                     print(self.collisionShip2())
                     print(self.collisionShip3())
-                if self.torpedo.rect.top < 372:
+                if self.torpedo.rect.top < 420:
                     print("="*15)
                     del(self.torpedo)
                     self.torpedo = None

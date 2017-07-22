@@ -25,7 +25,7 @@ class Torpedo(pygame.sprite.Sprite):
         print("Image pos: " + str(self.imagePos))
         self.image = pygame.image.load(self.imageList[self.imagePos])
         self.image = pygame.transform.scale(self.image, (self.scaleX, self.scaleY))
-
+        self.originalRect = pygame.transform.scale(self.screen,(self.scaleX, self.scaleY))
         self.originalRect = self.image.get_rect()
         self.originalRect.center = (500, 700)
         
@@ -37,7 +37,7 @@ class Torpedo(pygame.sprite.Sprite):
 
         
 
-        self.screen.blit(self.image, (self.rect.x, self.rect.y))
+        self.screen.blit(self.image, (self.rect.x, self.rect.y-50))
         
         
 
@@ -54,9 +54,11 @@ class Torpedo(pygame.sprite.Sprite):
             if self.scaleX == 1 or self.scaleY == 1:
                 self.scaleX = 1
                 self.scaleY = 1
+                
             else:
                 self.scaleX -= 1
                 self.scaleY -= 1
+                
         if self.imagePos == 3:
             self.imagePos = 0
         self.draw()
