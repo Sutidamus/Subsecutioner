@@ -4,6 +4,7 @@ import sys
 import ships
 import scope
 import torpedo
+import random
 
 def main():
     pygame.init()
@@ -27,9 +28,12 @@ class Game:
         self.background = self.background.convert()
         self.screen.fill((200,200,200)) # Values can be changed as needed. Example values
         self.bg = background.Background(self.screen, 0, 375)
-        self.ship1 = ships.Ship(self.screen, 0, 340)
-        self.ship2 = ships.Ship(self.screen, -200, 340)
-        self.ship3 = ships.Ship(self.screen, -400, 340) 
+        self.ship1Y = random.randint(340, 375)
+        self.ship2Y = random.randint(350, 385)
+        self.ship3Y = random.randint(360, 395)
+        self.ship1 = ships.Ship(self.screen, 0, self.ship1Y)
+        self.ship2 = ships.Ship(self.screen, -200, self.ship2Y)
+        self.ship3 = ships.Ship(self.screen, -400, self.ship3Y) 
         self.scope = scope.Scope(self.screen)
         self.linev = scope.Scope(self.screen)
         self.lineh = scope.Scope(self.screen)
@@ -102,14 +106,16 @@ class Game:
                 pass
             if not self.torpedo == None:
                 self.torpedo.move()
-                if (self.collision()):
+                if (self.collision() or self.torpedo.rect.top < 420):
                     print(self.collisionShip1())
                     print(self.collisionShip2())
                     print(self.collisionShip3())
-                if self.torpedo.rect.top < 420:
-                    print("="*15)
                     del(self.torpedo)
                     self.torpedo = None
+                #if self.torpedo.rect.top < 420:
+                    #print("="*15)
+                    #del(self.torpedo)
+                    #self.torpedo = None
             self.updateScore()
 
 

@@ -37,7 +37,7 @@ class Torpedo(pygame.sprite.Sprite):
 
         
 
-        self.screen.blit(self.image, (self.rect.x, self.rect.y-50))
+        self.screen.blit(self.image, (self.rect.x, self.rect.y-40))
         
         
 
