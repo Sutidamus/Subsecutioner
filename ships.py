@@ -11,6 +11,9 @@ class Ship(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.move_ip(self.xCood, self.yCood)
         #print(self.rect.y)
+    
+    def __del__(self):
+        print ("Ship Destroyed")
 
     def draw(self):
         self.screen.blit(self.image,(self.rect.x, self.rect.y))

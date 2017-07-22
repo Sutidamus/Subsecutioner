@@ -25,9 +25,9 @@ class Game:
         self.background = self.background.convert()
         self.screen.fill((200,200,200)) # Values can be changed as needed. Example values
         self.bg = background.Background(self.screen, 0, 375)
-        self.ship1 = ships.Ship(self.screen, 100, 340)
-        self.ship2 = ships.Ship(self.screen, 250, 340)
-        self.ship3 = ships.Ship(self.screen, 400, 340) 
+        self.ship1 = ships.Ship(self.screen, 0, 340)
+        self.ship2 = ships.Ship(self.screen, -200, 340)
+        self.ship3 = ships.Ship(self.screen, -400, 340) 
         self.scope = scope.Scope(self.screen)
         self.linev = scope.Scope(self.screen)
         self.lineh = scope.Scope(self.screen)
@@ -47,13 +47,13 @@ class Game:
 
     def screenWrap(self):
         if self.ship1.rect.left == self.screen.get_width():
-            self.ship1 = ships.Ship(self.screen, 100, 340)
+            self.ship1 = ships.Ship(self.screen, 0, 340)
             self.ship1.draw()
         if self.ship2.rect.left == self.screen.get_width():
-            self.ship2 = ships.Ship(self.screen, 250, 340)
+            self.ship2 = ships.Ship(self.screen, -200, 340)
             self.ship2.draw()
         if self.ship3.rect.left == self.screen.get_width():
-            self.ship3 = ships.Ship(self.screen, 400, 340)
+            self.ship3 = ships.Ship(self.screen, -400, 340)
             self.ship3.draw()       
 
 
@@ -100,7 +100,10 @@ class Game:
                 pass
             if not self.torpedo == None:
                 self.torpedo.move()
-                print(self.collision())
+                if (self.collision()):
+                    print(self.collisionShip1())
+                    print(self.collisionShip2())
+                    print(self.collisionShip3())
                 if self.torpedo.rect.top < 372:
                     print("="*15)
                     del(self.torpedo)
@@ -110,6 +113,23 @@ class Game:
     def collision(self):
         if pygame.sprite.collide_rect(self.torpedo, self.ship1) or pygame.sprite.collide_rect(self.torpedo, self.ship2) or pygame.sprite.collide_rect(self.torpedo, self.ship3):
             return True
-        return False
+
+    def collisionShip1 (self):
+        if pygame.sprite.collide_rect(self.torpedo, self.ship1):
+            del(self.ship1)
+            self.ship1 = ships.Ship(self.screen, -200, 340)
+            
+        
+    def collisionShip2 (self):
+        if pygame.sprite.collide_rect(self.torpedo, self.ship2):
+            del (self.ship2)
+            self.ship2 = ships.Ship(self.screen, -400, 340)
+            
+    def collisionShip3 (self):
+        if pygame.sprite.collide_rect(self.torpedo, self.ship3):
+            del (self.ship3)
+            self.ship3 = ships.Ship(self.screen, -600, 340)
+            
+            
         
 main()
