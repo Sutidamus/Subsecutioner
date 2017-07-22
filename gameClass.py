@@ -7,6 +7,7 @@ import torpedo
 
 def main():
     pygame.init()
+    pygame.font.init()
     game = Game()
     game.runGame()
 
@@ -17,6 +18,8 @@ Game Class
 
 class Game:
     def __init__(self):
+        self.score = 0
+        self.scoreText = pygame.font.Font("Minecraft.ttf", 30)
         self.width = 1000
         self.height = 700
         self.screen = pygame.display.set_mode((self.width, self.height))
@@ -107,10 +110,12 @@ class Game:
                     print("="*15)
                     del(self.torpedo)
                     self.torpedo = None
+            self.updateScore()
 
 
     def collision(self):
         if pygame.sprite.collide_rect(self.torpedo, self.ship1) or pygame.sprite.collide_rect(self.torpedo, self.ship2) or pygame.sprite.collide_rect(self.torpedo, self.ship3):
+            self.increaseScore()
             return True
 
     def collisionShip1 (self):
@@ -118,7 +123,6 @@ class Game:
             del(self.ship1)
             self.ship1 = ships.Ship(self.screen, -200, 340)
             
-        
     def collisionShip2 (self):
         if pygame.sprite.collide_rect(self.torpedo, self.ship2):
             del (self.ship2)
@@ -128,7 +132,11 @@ class Game:
         if pygame.sprite.collide_rect(self.torpedo, self.ship3):
             del (self.ship3)
             self.ship3 = ships.Ship(self.screen, -600, 340)
-            
-            
+
+    def increaseScore(self):
+        self.score += 100
+    def updateScore(self):
+        self.scoreDis = self.scoreText.render("Current Score: " + str(self.score), 20, (255,255,255))
+        self.screen.blit(self.scoreDis, (35, 35))
         
 main()
