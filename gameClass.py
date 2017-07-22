@@ -6,6 +6,7 @@ import scope
 import torpedo
 import random
 import explosion
+import time
 
 def main():
     pygame.init()
@@ -117,6 +118,7 @@ class Game:
                     self.collisionShip2()
                     self.collisionShip3()
                     del(self.torpedo)
+                    time.sleep(.5)
                     self.torpedo = None
                 #if self.torpedo.rect.top < 420:
                     #print("="*15)
