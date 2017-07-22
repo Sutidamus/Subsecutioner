@@ -118,7 +118,7 @@ class Game:
                     self.collisionShip2()
                     self.collisionShip3()
                     del(self.torpedo)
-                    time.sleep(.2)
+                    time.sleep(.03)
                     self.torpedo = None
                 #if self.torpedo.rect.top < 420:
                     #print("="*15)
@@ -140,7 +140,9 @@ class Game:
             self.explosion = explosion.Explosion(self.screen, self.explosionLocX, self.explosionLocY)
             del(self.ship1)
             self.ship1 = ships.Ship(self.screen, -200, 340)
-            self.explosion.animate()   
+            for i in range(3):
+                self.explosion.animate(i)   
+                
                    
     def collisionShip2 (self):
         if pygame.sprite.collide_rect(self.torpedo, self.ship2):
@@ -150,8 +152,9 @@ class Game:
             self.explosion = explosion.Explosion(self.screen, self.explosionLocX, self.explosionLocY)
             del(self.ship2)
             self.ship2 = ships.Ship(self.screen, -400, 340)
-            self.explosion.animate()
-            
+            for i in range(3):
+                self.explosion.animate(i)
+                
             
             
             
@@ -163,7 +166,9 @@ class Game:
             self.explosion = explosion.Explosion(self.screen, self.explosionLocX, self.explosionLocY)
             del(self.ship3)
             self.ship3 = ships.Ship(self.screen, -600, 340)
-            self.explosion.animate()
+            for i in range(3):
+                self.explosion.animate(i)
+               
            
             
     def increaseScore(self):

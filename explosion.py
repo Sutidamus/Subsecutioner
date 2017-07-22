@@ -1,4 +1,5 @@
 import pygame
+import time
 
 class Explosion:
     def __init__(self, screen, xCood, yCood):
@@ -18,13 +19,13 @@ class Explosion:
         pass
         
         
-    def animate(self):
-        if self.imagePos == 3:
-            self.imagePos = 0
+    def animate(self, index):
+        time.sleep(0.1)
+        self.imagePos = index
         #if pygame.time.get_ticks() % 12 == 0:
             #self.imagePos +=1
         self.image = pygame.image.load(self.imageList[self.imagePos])
         self.screen.blit(self.image, (self.xCood ,self.yCood))
         print("i drew that...")
         #print(str(self.imagePos) + "==============")
-        self.imagePos+= 1
+        

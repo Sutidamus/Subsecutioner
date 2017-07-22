@@ -42,12 +42,6 @@ class Title:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     self.checkForPlay()
 
-                    
-            #self.subsecute.draw()
-            #self.mouseX = pos[0]
-            #self.mouseY = pos[1]
-            #if event.type == pygame.MOUSEBUTTONUP:
-             #   self.subsecute.clicked()
             #self.subsecute.clicked()
             pygame.display.update()
             
@@ -68,31 +62,5 @@ class background:
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("Wallpaper1.jpg")
         self.rect = self.image.get_rect()
-
-#class subsecute(pygame.sprite.Sprite):
- #   def __init__(self, screen, xCood, yCood):
-  #      self.screen = screen
-   #     self.color = (51, 53, 56)
-    #    self.xCood = xCood
-     #   self.yCood = yCood
-      #  self.MouseClick = None
-       # self.rect = pygame.draw.rect(self.screen, self.color, (self.xCood, self.yCood, 150, 60))
-        #self.rect.draw()
-        #pygame.draw.rect(self.screen, self.color, self.rect)
-
-    #def draw(self):
-     #   pygame.draw.rect(self.screen, self.color, self.rect)
-
-    #def clicked(self):
-     #   pygame.key.set_repeat(500, 30) # Values can be changed as needed. Example values
-      #  while 1:
-       #     for event in pygame.event.get():
-        #        if event.type == pygame.MOUSEBUTTONUP:
-         #                   pos = pygame.mouse.get_pos()
-          #                  mouseX = pos[0]
-           #                 mouseY = pos[1] 
-            #    if mouseX >= 425 and mouseX <= 575 and mouseY >= 300 and mouseY <= 360:
-             #       Print("SUBSECUTE")
-
 
 main()
