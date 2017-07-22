@@ -41,15 +41,18 @@ class Game:
         self.dx = 0
         self.dy = 0
         self.torpedo = None
+        self.ship1Speed = random.randint(1,3)
+        self.ship2Speed = random.randint(1,3)
+        self.ship3Speed = random.randint(1,3)
         
 
     def moveShips(self):
         if self.ship1.rect.left < self.screen.get_width():
-            self.ship1.rect.move_ip(1,0)
+            self.ship1.rect.move_ip(self.ship1Speed,0)
         if self.ship2.rect.left < self.screen.get_width():
-            self.ship2.rect.move_ip(1,0)
+            self.ship2.rect.move_ip(self.ship2Speed,0)
         if self.ship3.rect.left < self.screen.get_width():
-            self.ship3.rect.move_ip(1, 0)
+            self.ship3.rect.move_ip(self.ship2Speed, 0)
 
     def screenWrap(self):
         if self.ship1.rect.left == self.screen.get_width():
