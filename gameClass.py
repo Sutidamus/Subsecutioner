@@ -132,6 +132,7 @@ class Game:
 
     def collisionShip1 (self):
         if pygame.sprite.collide_rect(self.torpedo, self.ship1):
+            print("Explosion 1 found")
             self.explosionLocX = self.ship1.rect.x
             self.explosionLocY = self.ship1.rect.y
             self.explosion = explosion.Explosion(self.screen, self.explosionLocX, self.explosionLocY)
@@ -141,6 +142,7 @@ class Game:
                    
     def collisionShip2 (self):
         if pygame.sprite.collide_rect(self.torpedo, self.ship2):
+            print("Explosion 2 found")
             self.explosionLocX = self.ship2.rect.x
             self.explosionLocY = self.ship2.rect.y
             self.explosion = explosion.Explosion(self.screen, self.explosionLocX, self.explosionLocY)
@@ -153,6 +155,7 @@ class Game:
             
     def collisionShip3 (self):
         if pygame.sprite.collide_rect(self.torpedo, self.ship3):
+            print("explosion 3 found")
             self.explosionLocX = self.ship3.rect.x
             self.explosionLocY = self.ship3.rect.y
             self.explosion = explosion.Explosion(self.screen, self.explosionLocX, self.explosionLocY)
