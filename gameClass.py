@@ -5,6 +5,7 @@ import ships
 import scope
 import torpedo
 import random
+import explosion
 
 def main():
     pygame.init()
@@ -41,10 +42,12 @@ class Game:
         self.dx = 0
         self.dy = 0
         self.torpedo = None
-        self.ship1Speed = random.randint(1,3)
-        self.ship2Speed = random.randint(1,3)
-        self.ship3Speed = random.randint(1,3)
-        
+        self.ship1Speed = 1
+        self.ship2Speed = 1
+        self.ship3Speed = 1
+        self.explosionLocX = None
+        self.explosionLocY = None
+        self.explosion = None
 
     def moveShips(self):
         if self.ship1.rect.left < self.screen.get_width():
@@ -109,10 +112,10 @@ class Game:
                 pass
             if not self.torpedo == None:
                 self.torpedo.move()
-                if (self.collision() or self.torpedo.rect.top < 420):
-                    print(self.collisionShip1())
-                    print(self.collisionShip2())
-                    print(self.collisionShip3())
+                if self.collision() or self.torpedo.rect.top < 360:
+                    self.collisionShip1()
+                    self.collisionShip2()
+                    self.collisionShip3()
                     del(self.torpedo)
                     self.torpedo = None
                 #if self.torpedo.rect.top < 420:
@@ -129,19 +132,35 @@ class Game:
 
     def collisionShip1 (self):
         if pygame.sprite.collide_rect(self.torpedo, self.ship1):
+            self.explosionLocX = self.ship1.rect.x
+            self.explosionLocY = self.ship1.rect.y
+            self.explosion = explosion.Explosion(self.screen, self.explosionLocX, self.explosionLocY)
             del(self.ship1)
             self.ship1 = ships.Ship(self.screen, -200, 340)
-            
+            self.explosion.animate()   
+                   
     def collisionShip2 (self):
         if pygame.sprite.collide_rect(self.torpedo, self.ship2):
-            del (self.ship2)
+            self.explosionLocX = self.ship2.rect.x
+            self.explosionLocY = self.ship2.rect.y
+            self.explosion = explosion.Explosion(self.screen, self.explosionLocX, self.explosionLocY)
+            del(self.ship2)
             self.ship2 = ships.Ship(self.screen, -400, 340)
+            self.explosion.animate()
+            
+            
+            
             
     def collisionShip3 (self):
         if pygame.sprite.collide_rect(self.torpedo, self.ship3):
-            del (self.ship3)
+            self.explosionLocX = self.ship3.rect.x
+            self.explosionLocY = self.ship3.rect.y
+            self.explosion = explosion.Explosion(self.screen, self.explosionLocX, self.explosionLocY)
+            del(self.ship3)
             self.ship3 = ships.Ship(self.screen, -600, 340)
-
+            self.explosion.animate()
+           
+            
     def increaseScore(self):
         self.score += 100
     def updateScore(self):
