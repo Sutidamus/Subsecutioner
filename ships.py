@@ -8,7 +8,7 @@ class Ship(pygame.sprite.Sprite):
         self.yCood = yCood
         self.color = (99, 93, 93)
         self.image = pygame.image.load("libertyShip.png")
-        self.image = pygame.transform.scale(self.image, (120, 100))
+        #self.image = pygame.transform.scale(self.image, (150, 150))
         self.rect = self.image.get_rect()
         self.rect.move_ip(self.xCood, self.yCood)
         #print(self.rect.y)
