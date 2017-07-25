@@ -1,8 +1,7 @@
 import pygame
 import sys
-import math
-import time
 import gameClass
+import helpScreen
 
 """
 Code will pop up a black screen
@@ -22,16 +21,12 @@ class Title:
         self.width = 1000 # Values can be changed as needed. Example values
         self.height = 700 # Values can be changed as needed. Example values
         self.screen = pygame.display.set_mode((self.width, self.height))
-        # Need to set background so shapes are drawn with full color
-        #self.background = pygame.Surface(self.screen.get_size())
-        #self.background = self.background.convert()
-        self.screen.fill((220,220,220)) # Values can be changed as needed. Example values
         self.background = background("Wallpaper1.jpg")
-        self.playButton = pygame.rect.Rect(425, 300, 200, 60)
-        #self.subsecute = subsecute(self.screen, 425, 300)
-        #pos = []
-        self.sample = pygame.font.SysFont("timesnewroman", 40)
-        self.words = self.sample.render("Subsecute", 1, pygame.Color("black"))
+        self.playButton = pygame.rect.Rect(425, 270, 200, 60)
+        self.helpButton = pygame.rect.Rect(425, 360, 200, 60)
+        self.sample = pygame.font.Font("True Lies.ttf", 40)
+        self.playWords = self.sample.render("Subsecute", 1, pygame.Color("black"))
+        self.helpWords = self.sample.render("Subsehelp", 1, pygame.Color("black"))
 
     def runTitle(self):
         pygame.key.set_repeat(500, 30) # Values can be changed as needed. Example values
@@ -41,21 +36,27 @@ class Title:
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     self.checkForPlay()
+                    self.checkForHelp()
 
-            #self.subsecute.clicked()
             pygame.display.update()
             
-            #self.screen.fill((220, 220, 220))
             self.screen.blit(self.background.image, (0, 0))
-            self.screen.blit(self.words, (435, 310))
+            self.screen.blit(self.playWords, (427, 280))
+            self.screen.blit(self.helpWords, (425, 370))
             pygame.draw.rect(self.screen, pygame.Color("black"), self.playButton, 4)
-
+            pygame.draw.rect(self.screen, pygame.Color("black"), self.helpButton, 4)
     def checkForPlay(self):
         p1x, p1y = pygame.mouse.get_pos()
-        print(p1x)
-        if p1x > 425 and p1x < 625 and p1y > 300 and p1y < 360:
+        if p1x > 425 and p1x < 625 and p1y > 270 and p1y < 330:
             game = gameClass.Game()
             game.runGame()
+
+    def checkForHelp(self):
+        p1x, p1y = pygame.mouse.get_pos()
+        if p1x > 425 and p1x < 625 and p1y > 360 and p1y < 420:
+            game = helpScreen.SubseHelp()
+            game.runHelp()
+
 
 class background:
     def __init__(self, image_file):
