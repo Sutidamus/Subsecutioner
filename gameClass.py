@@ -51,9 +51,7 @@ class Game:
         self.explosionLocX = None
         self.explosionLocY = None
         self.explosion = None
-        self.LENGTHOFGAME = 5
-        self.gameOver = False
-        self.gameCounter = 0
+        self.LENGTHOFGAME = 30
 
     def moveShips(self):
         if self.ship1.rect.left < self.screen.get_width():
@@ -90,6 +88,9 @@ class Game:
     def runGame(self):
         pygame.key.set_repeat(500, 30) # Values can be changed as needed. Example values
 
+        startGameTime = time.time()
+        # endGameTime = startGameTime + self.LENGTHOFGAME
+
         while 1:
             for event in pygame.event.get(): # Handles figuring out even 
                 if event.type == pygame.QUIT:
@@ -114,7 +115,13 @@ class Game:
             self.scope.move()
             self.moveShips()
             self.screenWrap()
-            if self.gameCounter == self.LENGTHOFGAME: 
+             
+            
+                #if self.gameCounter == 18:
+
+            
+
+            if time.time() - startGameTime >= self.LENGTHOFGAME:
                 go = gameover.GameOver()
                 g = go.runGameOver()
                 if g:
@@ -150,10 +157,8 @@ class Game:
                     self.explosionLocX = None
                     self.explosionLocY = None
                     self.explosion = None
-                    self.LENGTHOFGAME = 3
-                    self.gameOver = False
-                    self.gameCounter = 0
-                    
+                    startGameTime = time.time()
+
 
             
             key = pygame.key.get_pressed()
@@ -181,9 +186,7 @@ class Game:
                     #del(self.torpedo)
                     #self.torpedo = None
             self.updateScore()
-            if seconds % 30 == 0:
-                self.gameCounter += 1
-
+            #if seconds % 30 == 0:
 
 
     def collision(self):
