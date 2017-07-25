@@ -89,7 +89,6 @@ class Game:
         pygame.key.set_repeat(500, 30) # Values can be changed as needed. Example values
 
         startGameTime = time.time()
-        # endGameTime = startGameTime + self.LENGTHOFGAME
 
         while 1:
             for event in pygame.event.get(): # Handles figuring out even 
@@ -115,11 +114,7 @@ class Game:
             self.scope.move()
             self.moveShips()
             self.screenWrap()
-             
-            
-                #if self.gameCounter == 18:
-
-            
+                   
 
             if time.time() - startGameTime >= self.LENGTHOFGAME:
                 go = gameover.GameOver()

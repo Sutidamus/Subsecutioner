@@ -28,9 +28,11 @@ class Title:
         self.helpButton = pygame.rect.Rect(436, 300, 200, 60)
         self.storyButton = pygame.rect.Rect(436, 390, 200, 60)
         self.sample = pygame.font.Font("1942.ttf", 34)
+        self.subsecutionerSample = pygame.font.Font("Typewriter.ttf", 60)
         self.playWords = self.sample.render("Subsecute", 1, pygame.Color("black"))
         self.helpWords = self.sample.render("Help", 1, pygame.Color("black"))
         self.storyWords = self.sample.render("Story", 1, pygame.Color("black"))
+        self.subsecutioner = self.subsecutionerSample.render("THE SUBSECUTIONER", 1, pygame.Color("black"))
 
     def runTitle(self):
         pygame.key.set_repeat(500, 30) # Values can be changed as needed. Example values
@@ -49,6 +51,7 @@ class Title:
             self.screen.blit(self.playWords, (438, 222))
             self.screen.blit(self.helpWords, (485, 310))
             self.screen.blit(self.storyWords, (480, 400))
+            self.screen.blit(self.subsecutioner, (200, 50))
             pygame.draw.rect(self.screen, pygame.Color("black"), self.playButton, 3)
             pygame.draw.rect(self.screen, pygame.Color("black"), self.helpButton, 3)
             pygame.draw.rect(self.screen, pygame.Color("black"), self.storyButton, 3)

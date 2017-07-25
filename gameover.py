@@ -23,7 +23,7 @@ class GameOver:
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.background = background("Wallpaper1.jpg")
         self.sample = pygame.font.Font("1942.ttf", 40)
-        self.gameOverSample = pygame.font.Font("1942.ttf", 80)
+        self.gameOverSample = pygame.font.Font("Typewriter.ttf", 80)
         self.playAgain = pygame.rect.Rect(360, 240, 260, 60)
         self.quit = pygame.rect.Rect(433, 330, 105, 60)
         self.gameOverWords = self.gameOverSample.render("Game Over", 1, pygame.Color("black"))
