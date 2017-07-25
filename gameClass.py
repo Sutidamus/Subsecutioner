@@ -57,7 +57,7 @@ class Game:
         if self.ship2.rect.left < self.screen.get_width():
             self.ship2.rect.move_ip(self.ship2Speed,0)
         if self.ship3.rect.left < self.screen.get_width():
-            self.ship3.rect.move_ip(self.ship2Speed, 0)
+            self.ship3.rect.move_ip(self.ship3Speed, 0)
 
     def screenWrap(self):
         if self.ship1.rect.left == self.screen.get_width():
