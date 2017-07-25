@@ -49,7 +49,7 @@ class Game:
         self.explosionLocX = None
         self.explosionLocY = None
         self.explosion = None
-        #self.LENGTHOFGAME = 10
+        self.LENGTHOFGAME = 10
 
     def moveShips(self):
         if self.ship1.rect.left < self.screen.get_width():
@@ -109,8 +109,8 @@ class Game:
             self.scope.move()
             self.moveShips()
             self.screenWrap()
-            #if seconds == self.LENGTHOFGAME:
-            #    sys.exit()
+            if seconds == self.LENGTHOFGAME:
+                sys.exit()
             
             key = pygame.key.get_pressed()
             # Catching the ZeroDivisionError using an exception
