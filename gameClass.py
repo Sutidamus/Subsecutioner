@@ -7,6 +7,7 @@ import torpedo
 import random
 import explosion
 import time
+import gameover
 
 def main():
     pygame.init()
@@ -21,6 +22,7 @@ Game Class
 
 class Game:
     def __init__(self):
+        pygame.init()
         self.score = 0
         self.scoreText = pygame.font.Font("Minecraft.ttf", 30)
         self.width = 1000
@@ -49,7 +51,9 @@ class Game:
         self.explosionLocX = None
         self.explosionLocY = None
         self.explosion = None
-        self.LENGTHOFGAME = 10
+        self.LENGTHOFGAME = 5
+        self.gameOver = False
+        self.gameCounter = 0
 
     def moveShips(self):
         if self.ship1.rect.left < self.screen.get_width():
@@ -91,6 +95,7 @@ class Game:
                 if event.type == pygame.QUIT:
                     sys.exit()
             pygame.display.update()
+            seconds = pygame.time.get_ticks()//1000
             self.screen.fill((200,200,200)) # Values can be changed as needed. Example values
             self.bg.drawSea()
             self.bg.drawSky()
@@ -98,7 +103,7 @@ class Game:
             self.ship2.draw()
             self.ship3.draw()
             
-            seconds = pygame.time.get_ticks()//1000
+            
             if seconds >= 5 and seconds <= 8:
                 startTime = int(time.time())
                 endTime = startTime + 10
@@ -109,8 +114,47 @@ class Game:
             self.scope.move()
             self.moveShips()
             self.screenWrap()
-            if seconds == self.LENGTHOFGAME:
-                sys.exit()
+            if self.gameCounter == self.LENGTHOFGAME: 
+                go = gameover.GameOver()
+                g = go.runGameOver()
+                if g:
+                    return
+                else:
+                    pygame.init()
+                    # re-setup the class game to play the  game
+                    self.score = 0
+                    self.scoreText = pygame.font.Font("Minecraft.ttf", 30)
+                    self.width = 1000
+                    self.height = 700
+                    self.screen = pygame.display.set_mode((self.width, self.height))
+                    self.background = pygame.Surface(self.screen.get_size())
+                    self.background = self.background.convert()
+                    self.screen.fill((200,200,200)) # Values can be changed as needed. Example values
+                    self.bg = background.Background(self.screen, 0, 375)
+                    self.ship1Y = random.randint(340, 375)
+                    self.ship2Y = random.randint(350, 385)
+                    self.ship3Y = random.randint(360, 395)
+                    self.ship1 = ships.Ship(self.screen, 0, self.ship1Y)
+                    self.ship2 = ships.Ship(self.screen, -200, self.ship2Y)
+                    self.ship3 = ships.Ship(self.screen, -400, self.ship3Y) 
+                    self.scope = scope.Scope(self.screen)
+                    self.linev = scope.Scope(self.screen)
+                    self.lineh = scope.Scope(self.screen)
+                    self.P1 = (500, 700)
+                    self.dx = 0
+                    self.dy = 0
+                    self.torpedo = None
+                    self.ship1Speed = 1
+                    self.ship2Speed = 1
+                    self.ship3Speed = 1
+                    self.explosionLocX = None
+                    self.explosionLocY = None
+                    self.explosion = None
+                    self.LENGTHOFGAME = 3
+                    self.gameOver = False
+                    self.gameCounter = 0
+                    
+
             
             key = pygame.key.get_pressed()
             # Catching the ZeroDivisionError using an exception
@@ -137,6 +181,9 @@ class Game:
                     #del(self.torpedo)
                     #self.torpedo = None
             self.updateScore()
+            if seconds % 30 == 0:
+                self.gameCounter += 1
+
 
 
     def collision(self):
