@@ -113,7 +113,7 @@ class Game:
                 pass
             if not self.torpedo == None:
                 self.torpedo.move()
-                if self.collision() or self.torpedo.rect.top < 330:
+                if self.collision() or self.torpedo.rect.top < 420:
                     self.collisionShip1()
                     self.collisionShip2()
                     self.collisionShip3()
