@@ -7,6 +7,8 @@ Code will pop up a black screen
 
 def main():
     pygame.init()
+    pygame.mixer.music.load("menu_bgm.wav")
+    pygame.mixer.music.play(1, 0.0)
     gameOver = GameOver()
     gameOver.runGameOver()
 
@@ -42,6 +44,8 @@ class GameOver:
                     if x == True:
                         return True
                     if self.checkPlayAgain() == True:
+                        pygame.mixer.music.load("sea_music.wav")
+                        pygame.mixer.music.play(1, 0.0)
                         return False
 
 

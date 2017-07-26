@@ -25,6 +25,7 @@ class Game:
         pygame.init()
         self.score = 0
         self.scoreText = pygame.font.Font("Minecraft.ttf", 30)
+        self.timeText = pygame.font.Font("Minecraft.ttf", 30)
         self.width = 1000
         self.height = 700
         self.screen = pygame.display.set_mode((self.width, self.height))
@@ -51,7 +52,8 @@ class Game:
         self.explosionLocX = None
         self.explosionLocY = None
         self.explosion = None
-        self.LENGTHOFGAME = 30
+        self.LENGTHOFGAME = 60
+        self.time = 60
 
     def moveShips(self):
         if self.ship1.rect.left < self.screen.get_width():
@@ -89,13 +91,15 @@ class Game:
         pygame.key.set_repeat(500, 30) # Values can be changed as needed. Example values
 
         startGameTime = time.time()
+        rand_blackoutSt = random.randint(5, 8)
+        rand_blackoutEnd = random.randint(9, 12)
 
         while 1:
             for event in pygame.event.get(): # Handles figuring out even 
                 if event.type == pygame.QUIT:
                     sys.exit()
             pygame.display.update()
-            seconds = pygame.time.get_ticks()//1000
+            #seconds = pygame.time.get_ticks()//1000
             self.screen.fill((200,200,200)) # Values can be changed as needed. Example values
             self.bg.drawSea()
             self.bg.drawSky()
@@ -104,19 +108,24 @@ class Game:
             self.ship3.draw()
             
             
-            if seconds >= 5 and seconds <= 8:
+            if time.time() - startGameTime >= rand_blackoutSt and  time.time() - startGameTime <= rand_blackoutEnd:
                 startTime = int(time.time())
                 endTime = startTime + 10
                 while not startTime == endTime:
                     self.screen.fill((0,0,0))
                     startTime += 1
             print(pygame.time.get_ticks())
+            #if time.time()*1000%1000 ==0:
+                #self.time -= 1
             self.scope.move()
             self.moveShips()
             self.screenWrap()
                    
 
             if time.time() - startGameTime >= self.LENGTHOFGAME:
+                pygame.mixer.music.stop()
+                pygame.mixer.music.load("menu_bgm.wav")
+                pygame.mixer.music.play(-1, 0.0)
                 go = gameover.GameOver()
                 g = go.runGameOver()
                 if g:
@@ -181,6 +190,7 @@ class Game:
                     #del(self.torpedo)
                     #self.torpedo = None
             self.updateScore()
+            self.updateTime()
             #if seconds % 30 == 0:
 
 
@@ -233,4 +243,8 @@ class Game:
     def updateScore(self):
         self.scoreDis = self.scoreText.render("Current Score: " + str(self.score), 20, (255,255,255))
         self.screen.blit(self.scoreDis, (35, 35))
-        
+    def changeTime(self):
+        self.time -= 1
+    def updateTime(self):
+        self.textDis = self.timeText.render("Time: " + str(self.time),20, (255,255,255))
+        self.screen.blit(self.textDis,(850, 35))
