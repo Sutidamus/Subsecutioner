@@ -46,14 +46,17 @@ class Game:
         self.dx = 0
         self.dy = 0
         self.torpedo = None
-        self.ship1Speed = 1
-        self.ship2Speed = 1
-        self.ship3Speed = 1
+        self.ship1Speed = random.randint(1,3)
+        self.ship2Speed = random.randint(1,3)
+        self.ship3Speed = random.randint(1,3)
         self.explosionLocX = None
         self.explosionLocY = None
         self.explosion = None
         self.LENGTHOFGAME = 60
         self.time = 60
+        self.explodeSound = pygame.mixer.Sound("explode.wav")
+        self.torpedoSound = pygame.mixer.Sound("torpedoMove.wav")
+        self.cooldown = 300
 
     def moveShips(self):
         if self.ship1.rect.left < self.screen.get_width():
@@ -91,9 +94,9 @@ class Game:
         pygame.key.set_repeat(500, 30) # Values can be changed as needed. Example values
 
         startGameTime = time.time()
+        self.last = pygame.time.get_ticks()
         rand_blackoutSt = random.randint(5, 8)
         rand_blackoutEnd = random.randint(9, 12)
-
         while 1:
             for event in pygame.event.get(): # Handles figuring out even 
                 if event.type == pygame.QUIT:
@@ -167,22 +170,29 @@ class Game:
             
             key = pygame.key.get_pressed()
             # Catching the ZeroDivisionError using an exception
-            
+            self.now = pygame.time.get_ticks()
             try:
                 if key[pygame.K_SPACE]:
                     print(self.calculateSlope())
+                    #self.torpedoSound.play()
                     self.torpedo = torpedo.Torpedo(self.screen, self.dx, self.dy)
+                    self.torpedoSound.play()
+                    self.torpedoSound.set_volume(1.0)
             except ZeroDivisionError:
                 self.torpedo = torpedo.Torpedo(self.screen, self.dx, self.dy)
                 self.torpedo.move()
+                self.torpedoSound.play()
                 pass
             if not self.torpedo == None:
+                oldVolume = self.torpedoSound.get_volume()
+                self.torpedoSound.set_volume(oldVolume - .005)
                 self.torpedo.move()
                 if self.collision() or self.torpedo.rect.top < 420:
                     self.collisionShip1()
                     self.collisionShip2()
                     self.collisionShip3()
                     del(self.torpedo)
+                    self.torpedoSound.stop()
                     time.sleep(.03)
                     self.torpedo = None
                 #if self.torpedo.rect.top < 420:
@@ -204,6 +214,7 @@ class Game:
             print("Explosion 1 found")
             self.explosionLocX = self.ship1.rect.x
             self.explosionLocY = self.ship1.rect.y
+            self.explodeSound.play()
             self.explosion = explosion.Explosion(self.screen, self.explosionLocX, self.explosionLocY)
             del(self.ship1)
             self.ship1 = ships.Ship(self.screen, -200, 340)
@@ -216,6 +227,7 @@ class Game:
             print("Explosion 2 found")
             self.explosionLocX = self.ship2.rect.x
             self.explosionLocY = self.ship2.rect.y
+            self.explodeSound.play()
             self.explosion = explosion.Explosion(self.screen, self.explosionLocX, self.explosionLocY)
             del(self.ship2)
             self.ship2 = ships.Ship(self.screen, -400, 340)
@@ -230,6 +242,7 @@ class Game:
             print("explosion 3 found")
             self.explosionLocX = self.ship3.rect.x
             self.explosionLocY = self.ship3.rect.y
+            self.explodeSound.play()
             self.explosion = explosion.Explosion(self.screen, self.explosionLocX, self.explosionLocY)
             del(self.ship3)
             self.ship3 = ships.Ship(self.screen, -600, 340)
