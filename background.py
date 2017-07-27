@@ -11,6 +11,7 @@ class Background(pygame.sprite.Sprite):
         self.color = (50,50,230)
         self.skyColor = (30, 170, 220)
         self.image = pygame.image.load("atlanticOcean.png")
+        self.skyImage = pygame.image.load("sky.png")
         self.oceanRect = self.image.get_rect()
         #self.image = pygame.transform.scale(self.image, (100,100))
         #self.ocean = pygame.draw.rect(self.screen, self.color, (self.xCood, self.yCood, self.screen.get_width(), 400) )
@@ -21,6 +22,8 @@ class Background(pygame.sprite.Sprite):
         self.screen.blit(self.image, (0, 100))
     def drawSky(self):
         pygame.draw.rect(self.screen, self.skyColor, self.sky)
+        self.skyImage = pygame.transform.scale(self.skyImage, (1000,400))
+        self.screen.blit(self.skyImage,(0,0))
 
 
     
