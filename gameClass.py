@@ -54,6 +54,7 @@ class Game:
         self.explosion = None
         self.LENGTHOFGAME = 60
         self.time = 60
+        self.boVoiceCounter = 0
         self.explodeSound = pygame.mixer.Sound("explode.wav")
         self.torpedoSound = pygame.mixer.Sound("torpedoMove.wav")
         self.voiceSink = pygame.mixer.Sound("ShipDestroyed1.wav")
@@ -128,8 +129,9 @@ class Game:
             if time.time() - startGameTime >= rand_blackoutSt and time.time() - startGameTime <= rand_blackoutEnd:
                 if self.voiceCounter == 0:
                     self.channel3.play(self.voicePowerGone, 0)
-                if int(time.time()) - int(startGameTime) == rand_blackoutEnd:
+                if int(time.time()) - int(startGameTime) == int(rand_blackoutEnd) and self.boVoiceCounter == 0:
                     self.channel5.play(self.voicePowerPlus, 0)
+                    self.boVoiceCounter += 1
                     print("blackout over")
                 startTime = int(time.time())
                 endTime = startTime + 10

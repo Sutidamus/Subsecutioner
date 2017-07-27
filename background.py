@@ -22,8 +22,8 @@ class Background(pygame.sprite.Sprite):
         self.screen.blit(self.image, (0, 100))
     def drawSky(self):
         pygame.draw.rect(self.screen, self.skyColor, self.sky)
-        self.skyImage = pygame.transform.scale(self.skyImage, (1000,400))
-        self.screen.blit(self.skyImage,(0,0))
+        #self.skyImage = pygame.transform.scale(self.skyImage, (1000,400))
+        #self.screen.blit(self.skyImage,(0,0))
 
 
     
