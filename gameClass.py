@@ -34,8 +34,8 @@ class Game:
         self.screen.fill((200,200,200)) # Values can be changed as needed. Example values
         self.bg = background.Background(self.screen, 0, 375)
         self.ship1Y = random.randint(340, 375)
-        self.ship2Y = random.randint(350, 385)
-        self.ship3Y = random.randint(360, 395)
+        self.ship2Y = random.randint(375, 385)
+        self.ship3Y = random.randint(385, 395)
         self.ship1 = ships.Ship(self.screen, 0, self.ship1Y)
         self.ship2 = ships.Ship(self.screen, -200, self.ship2Y)
         self.ship3 = ships.Ship(self.screen, -400, self.ship3Y) 
@@ -116,7 +116,7 @@ class Game:
         blackOut3 = random.randint(50, 52)
         blackout3st = 51
         blackout3End = random.randint(54, 56)
-        print(blackOut3)
+        #print(blackout3)
         while 1:
             for event in pygame.event.get(): # Handles figuring out even 
                 if event.type == pygame.QUIT:
@@ -146,7 +146,7 @@ class Game:
                     startTime += 1
                     self.voiceCounter += 1
             #3rd blackout
-            if time.time() - startGameTime >= blackout2st and time.time() - startGameTime <= blackout3End and blackOut3 == 51:
+            if time.time() - startGameTime >= blackOut3 and time.time() - startGameTime <= blackout3End and blackOut3 == 51:
                 if self.voiceCounter == 0:
                     self.channel3.play(self.voicePowerGone, 0)
                 if int(time.time()) - int(startGameTime) == int(rand_blackoutEnd) and self.boVoiceCounter == 0:
