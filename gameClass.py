@@ -59,12 +59,16 @@ class Game:
         self.voiceSink = pygame.mixer.Sound("ShipDestroyed1.wav")
         #self.voiceShoot = pygame.mixer.Sound("")
         self.voicePowerPlus = pygame.mixer.Sound("HavePower.wav")
+        self.voicePowerGone = pygame.mixer.Sound("NoPower.wav")
         #self.voiceTorp = pygame.mixer.Sound("Torpedo1.wav")
         self.cooldown = 300
         self.voiceCounter = 0
+        self.voiceTorpedo = pygame.mixer.Sound("firingTorpedo.wav")
         self.channel1 = pygame.mixer.Channel(0)
         self.channel2 = pygame.mixer.Channel(1)
         self.channel3 = pygame.mixer.Channel(2)
+        self.channel4 = pygame.mixer.Channel(3)
+        self.channel5 = pygame.mixer.Channel(4)
 
     def moveShips(self):
         if self.ship1.rect.left < self.screen.get_width():
@@ -105,6 +109,7 @@ class Game:
         self.last = pygame.time.get_ticks()
         rand_blackoutSt = random.randint(5, 8)
         rand_blackoutEnd = random.randint(9, 12)
+        blackVocCounter = 0
         while 1:
             for event in pygame.event.get(): # Handles figuring out even 
                 if event.type == pygame.QUIT:
@@ -112,16 +117,19 @@ class Game:
             pygame.display.update()
             #seconds = pygame.time.get_ticks()//1000
             self.screen.fill((200,200,200)) # Values can be changed as needed. Example values
+            self.time = 60
             self.bg.drawSea()
             self.bg.drawSky()
             self.ship1.draw()
             self.ship2.draw()
             self.ship3.draw()
-            
+            secondsPassed = time.time() - startGameTime
             
             if time.time() - startGameTime >= rand_blackoutSt and  time.time() - startGameTime <= rand_blackoutEnd:
                 if self.voiceCounter == 0:
-                    self.channel3.play(self.voicePowerPlus, 0)
+                    self.channel3.play(self.voicePowerGone, 0)
+                #if time.time() - startGameTime == rand_blackoutEnd:
+                    #self.channel5.play(self.voicePowerPlus, 0)
                 startTime = int(time.time())
                 endTime = startTime + 10
                 while not startTime == endTime:
@@ -188,6 +196,7 @@ class Game:
                     #self.torpedoSound.play()
                     self.torpedo = torpedo.Torpedo(self.screen, self.dx, self.dy)
                     self.channel1.play(self.torpedoSound, 0)
+                    self.channel4.play(self.voiceTorpedo, 0)
                     #self.channel2.play(self.voiceTorp, 0)
                     self.torpedoSound.set_volume(1.0)
             except ZeroDivisionError:
@@ -214,6 +223,8 @@ class Game:
                     #del(self.torpedo)
                     #self.torpedo = None
             self.updateScore()
+            self.time = self.time - secondsPassed
+            self.time = int(self.time)
             self.updateTime()
             #if seconds % 30 == 0:
 
@@ -275,4 +286,4 @@ class Game:
         self.time -= 1
     def updateTime(self):
         self.textDis = self.timeText.render("Time: " + str(self.time),20, (255,255,255))
-        self.screen.blit(self.textDis,(850, 35))
+        self.screen.blit(self.textDis,(830, 35))

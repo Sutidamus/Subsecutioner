@@ -63,7 +63,7 @@ class Title:
         if p1x > 436 and p1x < 636 and p1y > 210 and p1y < 270:
             pygame.mixer.music.stop()
             pygame.mixer.music.load("uboat_bgm.wav")
-            pygame.mixer.music.play(1, 0.0)
+            pygame.mixer.music.play(-1, 0.0)
             game = gameClass.Game()
             game.runGame()
 
