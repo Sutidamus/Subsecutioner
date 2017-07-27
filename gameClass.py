@@ -125,11 +125,12 @@ class Game:
             self.ship3.draw()
             secondsPassed = time.time() - startGameTime
             
-            if time.time() - startGameTime >= rand_blackoutSt and  time.time() - startGameTime <= rand_blackoutEnd:
+            if time.time() - startGameTime >= rand_blackoutSt and time.time() - startGameTime <= rand_blackoutEnd:
                 if self.voiceCounter == 0:
                     self.channel3.play(self.voicePowerGone, 0)
-                #if time.time() - startGameTime == rand_blackoutEnd:
-                    #self.channel5.play(self.voicePowerPlus, 0)
+                if int(time.time()) - int(startGameTime) == rand_blackoutEnd:
+                    self.channel5.play(self.voicePowerPlus, 0)
+                    print("blackout over")
                 startTime = int(time.time())
                 endTime = startTime + 10
                 while not startTime == endTime:
