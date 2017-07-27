@@ -56,7 +56,15 @@ class Game:
         self.time = 60
         self.explodeSound = pygame.mixer.Sound("explode.wav")
         self.torpedoSound = pygame.mixer.Sound("torpedoMove.wav")
+        self.voiceSink = pygame.mixer.Sound("ShipDestroyed1.wav")
+        #self.voiceShoot = pygame.mixer.Sound("")
+        self.voicePowerPlus = pygame.mixer.Sound("HavePower.wav")
+        #self.voiceTorp = pygame.mixer.Sound("Torpedo1.wav")
         self.cooldown = 300
+        self.voiceCounter = 0
+        self.channel1 = pygame.mixer.Channel(0)
+        self.channel2 = pygame.mixer.Channel(1)
+        self.channel3 = pygame.mixer.Channel(2)
 
     def moveShips(self):
         if self.ship1.rect.left < self.screen.get_width():
@@ -112,11 +120,14 @@ class Game:
             
             
             if time.time() - startGameTime >= rand_blackoutSt and  time.time() - startGameTime <= rand_blackoutEnd:
+                if self.voiceCounter == 0:
+                    self.channel3.play(self.voicePowerPlus, 0)
                 startTime = int(time.time())
                 endTime = startTime + 10
                 while not startTime == endTime:
                     self.screen.fill((0,0,0))
                     startTime += 1
+                    self.voiceCounter += 1
             print(pygame.time.get_ticks())
             #if time.time()*1000%1000 ==0:
                 #self.time -= 1
@@ -176,12 +187,15 @@ class Game:
                     print(self.calculateSlope())
                     #self.torpedoSound.play()
                     self.torpedo = torpedo.Torpedo(self.screen, self.dx, self.dy)
-                    self.torpedoSound.play()
+                    self.channel1.play(self.torpedoSound, 0)
+                    #self.channel2.play(self.voiceTorp, 0)
                     self.torpedoSound.set_volume(1.0)
             except ZeroDivisionError:
                 self.torpedo = torpedo.Torpedo(self.screen, self.dx, self.dy)
                 self.torpedo.move()
-                self.torpedoSound.play()
+                self.channel1.play(self.torpedoSound, 0)
+                #self.channel2.play(self.voiceTorp, 0)
+                self.torpedoSound.set_volume(1.0)
                 pass
             if not self.torpedo == None:
                 oldVolume = self.torpedoSound.get_volume()
@@ -207,6 +221,7 @@ class Game:
     def collision(self):
         if pygame.sprite.collide_rect(self.torpedo, self.ship1) or pygame.sprite.collide_rect(self.torpedo, self.ship2) or pygame.sprite.collide_rect(self.torpedo, self.ship3):
             self.increaseScore()
+            self.channel3.play(self.voiceSink, 0)
             return True
 
     def collisionShip1 (self):
