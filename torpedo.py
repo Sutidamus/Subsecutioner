@@ -54,7 +54,6 @@ class Torpedo(pygame.sprite.Sprite):
             if self.scaleX == 1 or self.scaleY == 1:
                 self.scaleX = 1
                 self.scaleY = 1
-                
             else:
                 self.scaleX -= 1
                 self.scaleY -= 1

@@ -110,7 +110,13 @@ class Game:
         self.last = pygame.time.get_ticks()
         rand_blackoutSt = random.randint(5, 8)
         rand_blackoutEnd = random.randint(9, 12)
+        blackout2st = random.randint(25, 28)
+        blackout2End = random.randint(29, 33)
         blackVocCounter = 0
+        blackOut3 = random.randint(50, 52)
+        blackout3st = 51
+        blackout3End = random.randint(54, 56)
+        print(blackOut3)
         while 1:
             for event in pygame.event.get(): # Handles figuring out even 
                 if event.type == pygame.QUIT:
@@ -125,8 +131,22 @@ class Game:
             self.ship2.draw()
             self.ship3.draw()
             secondsPassed = time.time() - startGameTime
-            
-            if time.time() - startGameTime >= rand_blackoutSt and time.time() - startGameTime <= rand_blackoutEnd:
+            #1st and 2nd Blackout
+            if time.time() - startGameTime >= rand_blackoutSt and time.time() - startGameTime <= rand_blackoutEnd or time.time() - startGameTime >= blackout2st and time.time() - startGameTime <= blackout2End:
+                if self.voiceCounter == 0:
+                    self.channel3.play(self.voicePowerGone, 0)
+                if int(time.time()) - int(startGameTime) == int(rand_blackoutEnd) and self.boVoiceCounter == 0:
+                    self.channel5.play(self.voicePowerPlus, 0)
+                    self.boVoiceCounter += 1
+                    print("blackout over")
+                startTime = int(time.time())
+                endTime = startTime + 10
+                while not startTime == endTime:
+                    self.screen.fill((0,0,0))
+                    startTime += 1
+                    self.voiceCounter += 1
+            #3rd blackout
+            if time.time() - startGameTime >= blackout2st and time.time() - startGameTime <= blackout3End and blackOut3 == 51:
                 if self.voiceCounter == 0:
                     self.channel3.play(self.voicePowerGone, 0)
                 if int(time.time()) - int(startGameTime) == int(rand_blackoutEnd) and self.boVoiceCounter == 0:
@@ -213,7 +233,7 @@ class Game:
                 oldVolume = self.torpedoSound.get_volume()
                 self.torpedoSound.set_volume(oldVolume - .005)
                 self.torpedo.move()
-                if self.collision() or self.torpedo.rect.top < 420:
+                if self.collision() or self.torpedo.rect.top < 440:
                     self.collisionShip1()
                     self.collisionShip2()
                     self.collisionShip3()
