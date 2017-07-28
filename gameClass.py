@@ -52,7 +52,7 @@ class Game:
         self.explosionLocX = None
         self.explosionLocY = None
         self.explosion = None
-        self.LENGTHOFGAME = 5
+        self.LENGTHOFGAME = 15
         self.time = 90
         self.boVoiceCounter = 0
         self.explodeSound = pygame.mixer.Sound("explode.wav")
@@ -171,7 +171,7 @@ class Game:
                 pygame.mixer.music.stop()
                 pygame.mixer.music.load("menu_bgm.wav")
                 pygame.mixer.music.play(-1, 0.0)
-                go = gameover.GameOver()
+                go = gameover.GameOver(self.score)
                 g = go.runGameOver()
                 if g:
                     return

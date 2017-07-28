@@ -18,7 +18,7 @@ def main():
 Game class
 """
 class GameOver:
-    def __init__(self):
+    def __init__(self, score):
         print("here")
         self.width = 1000 # Values can be changed as needed. Example values
         self.height = 700 # Values can be changed as needed. Example values
@@ -26,6 +26,8 @@ class GameOver:
         self.background = background("Wallpaper1.jpg")
         self.sample = pygame.font.Font("1942.ttf", 40)
         self.gameOverSample = pygame.font.Font("Typewriter.ttf", 80)
+        self.score = str(score)
+        self.scoreText = pygame.font.Font("Minecraft.ttf", 65)
         self.playAgain = pygame.rect.Rect(360, 240, 260, 60)
         self.quit = pygame.rect.Rect(433, 330, 105, 60)
         self.gameOverWords = self.gameOverSample.render("Game Over", 1, pygame.Color("black"))
@@ -54,6 +56,8 @@ class GameOver:
             pygame.draw.rect(self.screen, pygame.Color("black"), self.playAgain, 3)
             pygame.draw.rect(self.screen, pygame.Color("black"), self.quit, 3)
             self.screen.blit(self.playAgainWords, (360, 245))
+            self.scoreDis = self.scoreText.render("Final Score: " +self.score ,1, pygame.Color("white"))
+            self.screen.blit(self.scoreDis, (235, 500))
             self.screen.blit(self.gameOverWords, (250, 100))
             self.screen.blit(self.quitWords, (435, 335))
 
