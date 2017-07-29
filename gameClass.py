@@ -124,7 +124,7 @@ class Game:
             pygame.display.update()
             #seconds = pygame.time.get_ticks()//1000
             self.screen.fill((200,200,200)) # Values can be changed as needed. Example values
-            self.time = 5
+            self.time = 90
             self.bg.drawSea()
             self.bg.drawSky()
             self.ship1.draw()
