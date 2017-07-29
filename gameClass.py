@@ -52,7 +52,7 @@ class Game:
         self.explosionLocX = None
         self.explosionLocY = None
         self.explosion = None
-        self.LENGTHOFGAME = 15
+        self.LENGTHOFGAME = 90
         self.time = 90
         self.boVoiceCounter = 0
         self.explodeSound = pygame.mixer.Sound("explode.wav")
@@ -124,7 +124,7 @@ class Game:
             pygame.display.update()
             #seconds = pygame.time.get_ticks()//1000
             self.screen.fill((200,200,200)) # Values can be changed as needed. Example values
-            self.time = 90
+            self.time = 5
             self.bg.drawSea()
             self.bg.drawSky()
             self.ship1.draw()
@@ -200,9 +200,9 @@ class Game:
                     self.dx = 0
                     self.dy = 0
                     self.torpedo = None
-                    self.ship1Speed = 1
-                    self.ship2Speed = 1
-                    self.ship3Speed = 1
+                    self.ship1Speed = random.randint(1,3)
+                    self.ship2Speed = random.randint(1,3)
+                    self.ship3Speed = random.randint(1,3)
                     self.explosionLocX = None
                     self.explosionLocY = None
                     self.explosion = None
@@ -250,7 +250,11 @@ class Game:
             self.updateScore()
             self.time = self.time - secondsPassed
             self.time = int(self.time)
-            self.updateTime()
+            #if time.time() - startGameTime <= self.LENGTHOFGAME:
+            if time.time() - startGameTime >= self.LENGTHOFGAME:
+                self.screen.blit(self.textDis,(830, 35))
+            else:
+                self.updateTime()
             #if seconds % 30 == 0:
 
 
@@ -270,7 +274,7 @@ class Game:
             self.ship1 = ships.Ship(self.screen, -200, 340)
             for i in range(3):
                 self.explosion.animate(i)
-            self.increaseScore()   
+            self.score += self.ship1Speed * 100 
                 
                    
     def collisionShip2 (self):
@@ -284,7 +288,7 @@ class Game:
             self.ship2 = ships.Ship(self.screen, -400, 340)
             for i in range(3):
                 self.explosion.animate(i)
-            self.increaseScore()
+            self.score += self.ship2Speed * 100
                 
             
             
@@ -300,11 +304,11 @@ class Game:
             self.ship3 = ships.Ship(self.screen, -600, 340)
             for i in range(3):
                 self.explosion.animate(i)
-            self.increaseScore()
+            self.score += self.ship3Speed * 100
            
             
-    def increaseScore(self):
-        self.score += 100
+    #def increaseScore(self):
+        #self.score += 100
     def updateScore(self):
         self.scoreDis = self.scoreText.render("Current Score: " + str(self.score), 20, (255,255,255))
         self.screen.blit(self.scoreDis, (35, 35))

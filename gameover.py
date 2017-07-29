@@ -41,7 +41,7 @@ class GameOver:
             for event in pygame.event.get(): # Handles figuring out even 
                 if event.type == pygame.QUIT:
                     sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.type == pygame.MOUSEBUTTONUP:
                     x = self.checkQuit()
                     if x == True:
                         return True
